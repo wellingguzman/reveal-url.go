@@ -10,9 +10,9 @@ This is an experiment out of curiosity to reveal the url from URL shorteners in 
 package main
 
 import (
-    "fmt"
+  "fmt"
 
-    "wellingguzman.com/reveal_url"
+  "github.com/wellingguzman/reveal-url.go"
 )
 
 func main() {

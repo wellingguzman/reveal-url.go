@@ -1,3 +1,3 @@
-module wellingguzman.com/reveal_url
+module github.com/wellingguzman/reveal-url.go
 
 go 1.13

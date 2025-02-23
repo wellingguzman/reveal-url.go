@@ -26,14 +26,26 @@ func isResponseRedirect(response *http.Response) bool {
       len(response.Header.Get("Location")) > 0
 }
 
-func Reveal(url string, urls *[]string) (*[]string, error) {
+func goTo(url string) (response *http.Response, err error) {
   client := &http.Client{
     CheckRedirect: func (req *http.Request, via []*http.Request) error {
       return http.ErrUseLastResponse
     },
   }
 
-  response, err := client.Get(url)
+  request, err := http.NewRequest("HEAD", url, nil)
+  if err != nil {
+    return nil, err
+  }
+
+  // Some Server seems to reject request missing the User-Agent header
+  request.Header.Add("User-Agent", "")
+
+  return client.Do(request)
+}
+
+func Reveal(url string, urls *[]string) (*[]string, error) {
+  response, err := goTo(url)
 
   if err != nil {
     return nil, err;
